@@ -1,0 +1,64 @@
+const mongoose = require("mongoose");
+
+const ProductsSchema = new mongoose.Schema(
+  {
+    name_uz: {
+      type: mongoose.SchemaTypes.String,
+      required: true,
+    },
+    name_ru: {
+      type: mongoose.SchemaTypes.String,
+      required: true,
+    },
+    name_en: {
+      type: mongoose.SchemaTypes.String,
+      required: true,
+    },
+    description_uz: {
+      type: mongoose.SchemaTypes.String,
+      required: true,
+    },
+    description_ru: {
+      type: mongoose.SchemaTypes.String,
+      required: true,
+    },
+    description_en: {
+      type: mongoose.SchemaTypes.String,
+      required: true,
+    },
+    is_visible: {
+      type: mongoose.SchemaTypes.Boolean,
+      default: false,
+    },
+    categoryId: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: "products",
+    },
+    price: {
+      type: mongoose.SchemaTypes.String,
+    },
+    color: {
+      type: mongoose.SchemaTypes.String,
+    },
+    size: {
+      type: mongoose.SchemaTypes.String,
+    },
+    total: {
+      type: mongoose.SchemaTypes.String,
+    },
+    original_price: {
+      type: mongoose.SchemaTypes.String,
+    },
+    image: {
+      type: mongoose.SchemaTypes.Array,
+    },
+  },
+  {
+    versionKey: false,
+    timestamps: false,
+  }
+);
+
+const products = mongoose.model("products", ProductsSchema);
+
+module.exports = products;
