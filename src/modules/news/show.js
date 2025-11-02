@@ -3,7 +3,11 @@ const News = require("./News");
 
 const showNewsService = async ({ id }) => {
   try {
-    const banners = await News.findById(id);
+    const banners = await News.findByIdAndUpdate(
+      id,
+      { $inc: { views: 1 } },
+      { new: true }
+    );
 
     if (!banners) {
       throw new NotFoundError("News not found.");

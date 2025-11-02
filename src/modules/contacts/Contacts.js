@@ -6,6 +6,10 @@ const ContactsSchema = new mongoose.Schema(
       type: mongoose.SchemaTypes.String,
       // required: true,
     },
+    products: {
+      type: mongoose.SchemaTypes.Array,
+      // required: true,
+    },
     phone: {
       type: mongoose.SchemaTypes.String,
       // required: true,

@@ -38,10 +38,10 @@ const ProductsSchema = new mongoose.Schema(
       type: mongoose.SchemaTypes.String,
     },
     color: {
-      type: mongoose.SchemaTypes.String,
+      type: mongoose.SchemaTypes.Array,
     },
     size: {
-      type: mongoose.SchemaTypes.String,
+      type: mongoose.SchemaTypes.Array,
     },
     total: {
       type: mongoose.SchemaTypes.String,
@@ -51,6 +51,10 @@ const ProductsSchema = new mongoose.Schema(
     },
     image: {
       type: mongoose.SchemaTypes.Array,
+    },
+    views: {
+      type: mongoose.SchemaTypes.Number,
+      default: 0,
     },
   },
   {

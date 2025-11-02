@@ -3,7 +3,12 @@ const Products = require("./Products");
 
 const showProductsService = async ({ id }) => {
   try {
-    const products = await Products.findById(id);
+    // increment views atomically and return updated document
+    const products = await Products.findByIdAndUpdate(
+      id,
+      { $inc: { views: 1 } },
+      { new: true }
+    );
 
     if (!products) {
       throw new NotFoundError("Products not found.");
