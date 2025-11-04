@@ -17,7 +17,7 @@ exports.addProductsSchema = {
     original_price: Joi.string(),
     color: Joi.array(),
     size: Joi.array(),
-    total: Joi.string(),
+    total: Joi.array(),
     image: Joi.array(),
   }),
 };
@@ -44,7 +44,7 @@ exports.patchProductsSchema = {
     original_price: Joi.string(),
     color: Joi.array(),
     size: Joi.array(),
-    total: Joi.string(),
+    total: Joi.array(),
     image: Joi.array(),
   }),
 };
