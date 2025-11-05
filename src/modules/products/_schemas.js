@@ -16,6 +16,8 @@ exports.addProductsSchema = {
     is_visible: Joi.boolean(),
     price: Joi.string(),
     original_price: Joi.string(),
+    min_buy_quantity: Joi.number(),
+    max_buy_quantity: Joi.number(),
     variants: Joi.array().items(Joi.object({
       color_uz: Joi.string(),
       color_ru: Joi.string(),
@@ -48,6 +50,8 @@ exports.patchProductsSchema = {
     is_visible: Joi.boolean(),
     price: Joi.string(),
     original_price: Joi.string(),
+    min_buy_quantity: Joi.number(),
+    max_buy_quantity: Joi.number(),
     variants: Joi.array().items(Joi.object({
       color_uz: Joi.string(),
       color_ru: Joi.string(),
