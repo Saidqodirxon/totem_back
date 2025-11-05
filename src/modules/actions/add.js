@@ -1,7 +1,7 @@
-const Services = require("./Categories");
+const Services = require("./Actions");
 
 let SITE_URL = process.env.SITE_URL;
-const addCategoriesService = async (req) => {
+const addActionsService = async (req) => {
   try {
     const { name_uz, name_ru, name_en, image } = req.body;
 
@@ -21,4 +21,4 @@ const addCategoriesService = async (req) => {
   }
 };
 
-module.exports = addCategoriesService;
+module.exports = addActionsService;

@@ -1,6 +1,6 @@
 const Joi = require("joi");
 
-exports.addCategoriesSchema = {
+exports.addActionsSchema = {
   body: Joi.object({
     name_uz: Joi.string(),
     name_ru: Joi.string(),
@@ -8,7 +8,7 @@ exports.addCategoriesSchema = {
   }),
 };
 
-exports.patchCategoriesSchema = {
+exports.patchActionsSchema = {
   params: Joi.object({
     id: Joi.string(),
   }),
@@ -20,7 +20,7 @@ exports.patchCategoriesSchema = {
   }),
 };
 
-exports.allCategoriesSchema = {
+exports.allActionsSchema = {
   query: Joi.object({
     q: Joi.string(),
     sort: Joi.object({

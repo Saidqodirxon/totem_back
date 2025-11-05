@@ -15,12 +15,13 @@ const addProductsService = async (req) => {
       about_en,
       image,
       categoryId,
+      actionId,
       price,
       original_price,
-      color,
-      size,
-      total,
-      is_visible
+      variants: { color_uz, color_ru, color_en, size, total },
+      is_visible,
+      min_buy_quantity,
+      max_buy_quantity
     } = req.body;
 
     const products = new Products({
@@ -35,12 +36,13 @@ const addProductsService = async (req) => {
       about_en,
       image,
       categoryId,
+      actionId,
       price,
       original_price,
-      color,
-      size,
-      total,
-      is_visible
+      variants: { color_uz, color_ru, color_en, size, total },
+      is_visible,
+      min_buy_quantity,
+      max_buy_quantity
     });
 
     await products.save();

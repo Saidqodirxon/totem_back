@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const CategoriesSchema = new mongoose.Schema(
+const ActionsSchema = new mongoose.Schema(
   {
     name_uz: {
       type: mongoose.SchemaTypes.String,
@@ -21,6 +21,6 @@ const CategoriesSchema = new mongoose.Schema(
   }
 );
 
-const Categories = mongoose.model("categories", CategoriesSchema);
+const Actions = mongoose.model("actions", ActionsSchema);
 
-module.exports = Categories;
+module.exports = Actions;

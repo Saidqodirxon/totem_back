@@ -7,6 +7,7 @@ const handleError = require("./src/shared/errors/handle");
 const UserRoute = require("./src/modules/users/_api");
 const ServicesRoute = require("./src/modules/products/_api");
 const CategoriesRoute = require("./src/modules/categories/_api");
+const ActionsRoute = require("./src/modules/actions/_api");
 const NewsRoute = require("./src/modules/news/_api");
 const FaqsRoute = require("./src/modules/faqs/_api");
 
@@ -28,6 +29,7 @@ app.use(FaqsRoute);
 app.use(ServicesRoute);
 app.use(ContactsRoute);
 app.use(CategoriesRoute);
+app.use(ActionsRoute);
 app.use(Uploader);
 
 app.use(handleError);

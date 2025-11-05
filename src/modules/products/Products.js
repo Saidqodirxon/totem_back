@@ -32,19 +32,33 @@ const ProductsSchema = new mongoose.Schema(
     },
     categoryId: {
       type: mongoose.SchemaTypes.ObjectId,
-      ref: "products",
+      ref: "categories",
+    },
+    actionId: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: "actions",
     },
     price: {
       type: mongoose.SchemaTypes.String,
     },
-    color: {
+    variants: {
       type: mongoose.SchemaTypes.Array,
+      required: true,
+      items: {
+        color_uz: { type: mongoose.SchemaTypes.String },
+        color_ru: { type: mongoose.SchemaTypes.String },
+        color_en: { type: mongoose.SchemaTypes.String },
+        size: { type: mongoose.SchemaTypes.String },
+        total: { type: mongoose.SchemaTypes.Number },
+      },
     },
-    size: {
-      type: mongoose.SchemaTypes.Array,
+    min_buy_quantity: {
+      type: mongoose.SchemaTypes.Number,
+      default: 1,
     },
-    total: {
-      type: mongoose.SchemaTypes.String,
+    max_buy_quantity: {
+      type: mongoose.SchemaTypes.Number,
+      default: 100,
     },
     original_price: {
       type: mongoose.SchemaTypes.String,

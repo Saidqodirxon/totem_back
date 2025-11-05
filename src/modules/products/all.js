@@ -1,8 +1,7 @@
-const Categories = require("../categories/Categories");
 const Products = require("./Products");
 const allProductsService = async (query) => {
   try {
-    const { q, page, limit, sort, is_visible, view, categoryId, all } =
+    const { q, page, limit, sort, is_visible, view, categoryId, actionId, all } =
       query || {};
 
     const sortOptions = {};
@@ -52,6 +51,10 @@ const allProductsService = async (query) => {
 
     if (typeof categoryId !== "undefined" && categoryId !== "all") {
       filter.categoryId = categoryId;
+    }
+
+    if (typeof actionId !== "undefined" && actionId !== "all") {
+      filter.actionId = actionId;
     }
 
     let queryBuilder = Products.find(filter).sort(sortOptions).lean();
