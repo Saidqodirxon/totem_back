@@ -68,6 +68,7 @@ exports.allProductsSchema = {
     q: Joi.string(),
     is_visible: Joi.string().valid("true", "false"),
     categoryId: Joi.string().optional(), // .required() 
+    actionId: Joi.string().optional(),
     sort: Joi.object({
       by: Joi.string().valid("_id"),
       order: Joi.string().valid("asc", "desc"),
