@@ -1,6 +1,7 @@
 const Products = require("./Products");
 
 let SITE_URL = process.env.SITE_URL;
+
 const addProductsService = async (req) => {
   try {
     const {
@@ -18,11 +19,22 @@ const addProductsService = async (req) => {
       actionId,
       price,
       original_price,
-      variants: { color_uz, color_ru, color_en, size, total },
+      variants, // ✅ endi to‘liq array sifatida olamiz
       is_visible,
       min_buy_quantity,
-      max_buy_quantity
+      max_buy_quantity,
     } = req.body;
+
+    // ✅ variants massivligini tekshiramiz
+    const validVariants = Array.isArray(variants)
+      ? variants.map((v) => ({
+        color_uz: v.color_uz || "",
+        color_ru: v.color_ru || "",
+        color_en: v.color_en || "",
+        size: v.size || "",
+        total: Number(v.total) || 0,
+      }))
+      : [];
 
     const products = new Products({
       name_uz,
@@ -39,14 +51,15 @@ const addProductsService = async (req) => {
       actionId,
       price,
       original_price,
-      variants: { color_uz, color_ru, color_en, size, total },
+      variants: validVariants, // ✅ to‘g‘ri formatda saqlaymiz
       is_visible,
       min_buy_quantity,
-      max_buy_quantity
+      max_buy_quantity,
     });
 
     await products.save();
-    console.log("Products saved successfully:", products); // Tekshirish uchun
+
+    console.log("Products saved successfully:", products);
 
     return products;
   } catch (error) {
