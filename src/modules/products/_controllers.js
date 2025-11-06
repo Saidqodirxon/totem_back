@@ -114,6 +114,7 @@ const getProducts = async (req, res, next) => {
       is_visible: query.is_visible,
       view: query.view,
       categoryId: query.categoryId, // Pass categoryId to service
+      actionId: query.actionId,
     });
 
     res.status(200).json({
