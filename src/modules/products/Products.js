@@ -66,10 +66,6 @@ const ProductsSchema = new mongoose.Schema(
     image: {
       type: mongoose.SchemaTypes.Array,
     },
-    views: {
-      type: mongoose.SchemaTypes.Number,
-      default: 0,
-    },
   },
   {
     versionKey: false,
