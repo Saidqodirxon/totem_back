@@ -8,7 +8,7 @@ const allNewsService = async (query) => {
     const paginationOptions = {};
     const filterOptions = {}; // Add filter options for query conditions
 
-    const itemsPerPage = parseInt(limit) || 10;
+    const itemsPerPage = parseInt(limit) || 1000;
     const currentPage = parseInt(page?.offset) || 1;
     const offset = parseInt(page?.offset) || 0;
     const requestedLimit = parseInt(page?.limit) || itemsPerPage;

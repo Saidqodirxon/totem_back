@@ -7,7 +7,7 @@ const allFaqsService = async (query) => {
     const sortOptions = {};
     const paginationOptions = {};
 
-    const itemsPerPage = parseInt(limit) || 10000;
+    const itemsPerPage = parseInt(limit) || 1000;
     const currentPage = parseInt(page) || 1;
     const offset = parseInt(page.offset) || 0;
     const requestedLimit = parseInt(page.limit) || itemsPerPage;
