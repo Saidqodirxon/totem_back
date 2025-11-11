@@ -1,5 +1,4 @@
 const Products = require("./Products");
-const Categories = require("../categories/Categories");
 
 let SITE_URL = process.env.SITE_URL;
 

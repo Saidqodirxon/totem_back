@@ -1,6 +1,6 @@
 const { NotFoundError } = require("../../shared/errors");
 const Products = require("./Products");
-const Categories = require("../categories/Categories");
+const Subcategories = require("../subcategory/Subcategories");
 
 const editProductsService = async ({ id, ...changes }) => {
   console.log(changes.changes);
@@ -8,7 +8,7 @@ const editProductsService = async ({ id, ...changes }) => {
     // validate subcategory/category relationship if present in changes
     const incoming = changes.changes || {};
     if (incoming.subcategoryId) {
-      const subcat = await Categories.findById(incoming.subcategoryId).lean();
+      const subcat = await Subcategories.findById(incoming.subcategoryId).lean();
       if (!subcat) throw new NotFoundError("Subcategory not found.");
       const newCategoryId = incoming.categoryId || undefined;
       if (newCategoryId && subcat.parentId && String(subcat.parentId) !== String(newCategoryId)) {
