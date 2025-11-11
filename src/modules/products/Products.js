@@ -26,6 +26,18 @@ const ProductsSchema = new mongoose.Schema(
       type: mongoose.SchemaTypes.String,
       required: true,
     },
+    about_uz: {
+      type: mongoose.SchemaTypes.String,
+      required: true,
+    },
+    about_ru: {
+      type: mongoose.SchemaTypes.String,
+      required: true,
+    },
+    about_en: {
+      type: mongoose.SchemaTypes.String,
+      required: true,
+    },
     is_visible: {
       type: mongoose.SchemaTypes.Boolean,
       default: false,
