@@ -22,8 +22,10 @@ const allCategoriesService = async (query) => {
     }
 
     const filter = {};
-    if (typeof query.parentId !== "undefined" && query.parentId !== "all") {
-      filter.parentId = query.parentId;
+    // Accept both parentId and categoryId as aliases for filtering subcategories
+    const parentFilter = query.parentId || query.categoryId;
+    if (typeof parentFilter !== "undefined" && parentFilter !== "all") {
+      filter.parentId = parentFilter;
     }
 
     const categories = await Categories.find(filter)

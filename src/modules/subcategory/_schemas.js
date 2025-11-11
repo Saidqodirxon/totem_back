@@ -29,7 +29,8 @@ exports.allCategoriesSchema = {
       by: Joi.string().valid("_id"),
       order: Joi.string().valid("asc", "desc"),
     }),
-      parentId: Joi.string().optional(),
+    parentId: Joi.string().optional(),
+    categoryId: Joi.string().optional(),
     page: Joi.object({
       offset: Joi.number().integer().min(0).default(0),
       limit: Joi.number().integer().min(1).default(3),
