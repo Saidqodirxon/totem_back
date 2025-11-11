@@ -1,5 +1,5 @@
 const { NotFoundError } = require("../../shared/errors");
-const Categories = require("./Categories");
+const Categories = require("./Subcategories");
 
 const removeCategoriesService = async ({ id }) => {
   const existing = await Categories.findById(id);

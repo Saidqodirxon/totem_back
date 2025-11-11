@@ -5,6 +5,7 @@ exports.addCategoriesSchema = {
     name_uz: Joi.string(),
     name_ru: Joi.string(),
     name_en: Joi.string(),
+    parentId: Joi.string().optional(),
   }),
 };
 
@@ -17,6 +18,7 @@ exports.patchCategoriesSchema = {
     name_uz: Joi.string(),
     name_ru: Joi.string(),
     name_en: Joi.string(),
+    parentId: Joi.string().optional(),
   }),
 };
 
@@ -27,6 +29,7 @@ exports.allCategoriesSchema = {
       by: Joi.string().valid("_id"),
       order: Joi.string().valid("asc", "desc"),
     }),
+      parentId: Joi.string().optional(),
     page: Joi.object({
       offset: Joi.number().integer().min(0).default(0),
       limit: Joi.number().integer().min(1).default(3),

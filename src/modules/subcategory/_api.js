@@ -10,10 +10,10 @@ const {
 
 const router = express.Router();
 
-router.post("/categories", addCategories);
-router.get("/categories", getCategories);
-router.get("/categories/:id", showCategories);
-router.patch("/categories/:id", isLoggedIn, patchCategories);
-router.delete("/categories/:id", isLoggedIn, deleteCategories);
+router.post("/subcategories", addCategories);
+router.get("/subcategories", getCategories);
+router.get("/subcategories/:id", showCategories);
+router.patch("/subcategories/:id", isLoggedIn, patchCategories);
+router.delete("/subcategories/:id", isLoggedIn, deleteCategories);
 
 module.exports = router;

@@ -46,9 +46,22 @@ const ProductsSchema = new mongoose.Schema(
       type: mongoose.SchemaTypes.ObjectId,
       ref: "categories",
     },
+    subcategoryId: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: "categories",
+    },
     actionId: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: "actions",
+    },
+    is_set: {
+      type: mongoose.SchemaTypes.Boolean,
+      default: false,
+    },
+    set: {
+      type: [mongoose.SchemaTypes.ObjectId],
+      ref: "products",
+      default: [],
     },
     price: {
       type: mongoose.SchemaTypes.String,

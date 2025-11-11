@@ -1,4 +1,5 @@
 const Products = require("./Products");
+const Categories = require("../categories/Categories");
 
 let SITE_URL = process.env.SITE_URL;
 
@@ -16,16 +17,28 @@ const addProductsService = async (req) => {
       about_en,
       image,
       categoryId,
+      subcategoryId,
       actionId,
       price,
       original_price,
-      variants, // ✅ endi to‘liq array sifatida olamiz
+      variants,
       is_visible,
       min_buy_quantity,
       max_buy_quantity,
+      is_set,
+      set,
     } = req.body;
 
-    // ✅ variants massivligini tekshiramiz
+    if (subcategoryId) {
+      const subcat = await Categories.findById(subcategoryId).lean();
+      if (!subcat) {
+        throw new Error("Subcategory not found");
+      }
+      if (categoryId && subcat.parentId && String(subcat.parentId) !== String(categoryId)) {
+        throw new Error("Subcategory does not belong to the provided category");
+      }
+    }
+
     const validVariants = Array.isArray(variants)
       ? variants.map((v) => ({
         color_uz: v.color_uz || "",
@@ -48,13 +61,16 @@ const addProductsService = async (req) => {
       about_en,
       image,
       categoryId,
+      subcategoryId,
       actionId,
       price,
       original_price,
-      variants: validVariants, // ✅ to‘g‘ri formatda saqlaymiz
+      variants: validVariants,
       is_visible,
       min_buy_quantity,
       max_buy_quantity,
+      is_set: !!is_set,
+      set: Array.isArray(set) ? set : [],
     });
 
     await products.save();

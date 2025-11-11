@@ -1,5 +1,5 @@
 const { NotFoundError } = require("../../shared/errors");
-const Categories = require("./Categories");
+const Categories = require("./Subcategories");
 
 const editCategoriesService = async ({ id, ...changes }) => {
   console.log(changes.changes);

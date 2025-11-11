@@ -1,4 +1,4 @@
-const Categories = require("./Categories");
+const Categories = require("./Subcategories");
 
 const allCategoriesService = async (query) => {
   try {
@@ -21,14 +21,19 @@ const allCategoriesService = async (query) => {
       }
     }
 
-    const categories = await Categories.find()
+    const filter = {};
+    if (typeof query.parentId !== "undefined" && query.parentId !== "all") {
+      filter.parentId = query.parentId;
+    }
+
+    const categories = await Categories.find(filter)
       .sort(sortOptions)
       .skip(paginationOptions.skip)
       .limit(paginationOptions.limit)
       .lean()
       .exec();
 
-    const totalCategories = await Categories.countDocuments();
+    const totalCategories = await Categories.countDocuments(filter);
 
     return {
       categories: categories,

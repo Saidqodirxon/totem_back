@@ -14,6 +14,11 @@ const CategoriesSchema = new mongoose.Schema(
       type: mongoose.SchemaTypes.String,
       required: true,
     },
+    parentId: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: "categories",
+      default: null,
+    },
   },
   {
     versionKey: false,

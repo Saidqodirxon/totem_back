@@ -10,6 +10,7 @@ const CategoriesRoute = require("./src/modules/categories/_api");
 const ActionsRoute = require("./src/modules/actions/_api");
 const NewsRoute = require("./src/modules/news/_api");
 const FaqsRoute = require("./src/modules/faqs/_api");
+const SubcategoriesRoute = require("./src/modules/subcategory/_api");
 
 const ContactsRoute = require("./src/modules/contacts/_api");
 const Uploader = require("./src/modules/upload");
@@ -27,6 +28,7 @@ app.use(UserRoute);
 app.use(NewsRoute);
 app.use(FaqsRoute);
 app.use(ServicesRoute);
+app.use(SubcategoriesRoute);
 app.use(ContactsRoute);
 app.use(CategoriesRoute);
 app.use(ActionsRoute);

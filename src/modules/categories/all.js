@@ -21,7 +21,36 @@ const allCategoriesService = async (query) => {
       }
     }
 
-    const categories = await Categories.find()
+    // If parentId is provided, return only subcategories of that parent
+    const filter = {};
+    if (typeof query.parentId !== "undefined" && query.parentId !== "all") {
+      filter.parentId = query.parentId;
+    }
+
+    // support tree view: return parents with nested children
+    if (query && String(query.tree) === "true") {
+      const allCats = await Categories.find().lean().exec();
+      const byId = new Map();
+      allCats.forEach((c) => byId.set(String(c._id), { ...c, children: [] }));
+      const roots = [];
+      for (const c of allCats) {
+        if (c.parentId) {
+          const parent = byId.get(String(c.parentId));
+          if (parent) parent.children.push(byId.get(String(c._id)));
+          else roots.push(byId.get(String(c._id)));
+        } else {
+          roots.push(byId.get(String(c._id)));
+        }
+      }
+      return {
+        categories: roots,
+        total: roots.length,
+        offset: 0,
+        limit: roots.length,
+      };
+    }
+
+    const categories = await Categories.find(filter)
       .sort(sortOptions)
       .skip(paginationOptions.skip)
       .limit(paginationOptions.limit)
