@@ -29,15 +29,23 @@ const addProductsService = async (req) => {
       set,
     } = req.body;
 
-    if (subcategoryId) {
-      const subcat = await Categories.findById(subcategoryId).lean();
-      if (!subcat) {
-        throw new Error("Subcategory not found");
-      }
-      if (categoryId && subcat.parentId && String(subcat.parentId) !== String(categoryId)) {
-        throw new Error("Subcategory does not belong to the provided category");
-      }
-    }
+    // Optional: Validate subcategory if provided (commented out for now)
+    // if (subcategoryId) {
+    //   try {
+    //     const subcat = await Categories.findById(subcategoryId).lean();
+    //     if (!subcat) {
+    //       console.warn(`Subcategory with id ${subcategoryId} not found, skipping validation`);
+    //     } else if (categoryId && subcat.parentId && String(subcat.parentId) !== String(categoryId)) {
+    //       throw new Error("Subcategory does not belong to the provided category");
+    //     }
+    //   } catch (validationError) {
+    //     console.error(`Subcategory validation error:`, validationError.message);
+    //     if (validationError.message.includes("does not belong")) {
+    //       throw validationError;
+    //     }
+    //   }
+    // }
+
 
     const validVariants = Array.isArray(variants)
       ? variants.map((v) => ({
