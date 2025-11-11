@@ -111,6 +111,8 @@ const getCategories = async (req, res, next) => {
       q: query.q,
       sort: query.sort,
       page: { limit, offset },
+      parentId: query.parentId,
+      categoryId: query.categoryId,
     });
 
     res.status(200).json({
