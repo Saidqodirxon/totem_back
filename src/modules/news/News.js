@@ -36,7 +36,7 @@ const NewsSchema = new mongoose.Schema(
   },
   {
     versionKey: false,
-    timestamps: false,
+    timestamps: true,
   }
 );
 
