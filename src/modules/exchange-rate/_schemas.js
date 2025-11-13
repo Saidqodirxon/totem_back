@@ -2,7 +2,7 @@ const Joi = require("joi");
 
 const getSchema = {};
 
-const updateSchema = Joi.object({
+const updateSchema = {
   body: Joi.object({
     usd_to_uzs: Joi.number()
       .positive()
@@ -12,7 +12,7 @@ const updateSchema = Joi.object({
         "any.required": "USD to UZS rate is required",
       }),
   }),
-});
+};
 
 module.exports = {
   getSchema,
