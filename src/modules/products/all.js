@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Products = require("./Products");
 const allProductsService = async (query) => {
   try {
-    const { q, page, limit, sort, is_visible, view, categoryId, actionId, all } =
+    const { q, page, limit, sort, is_visible, view, categoryId, subcategoryId, actionId, all } =
       query || {};
 
     const sortOptions = {};
@@ -53,6 +53,9 @@ const allProductsService = async (query) => {
 
     if (typeof categoryId !== "undefined" && categoryId !== "all") {
       filter.categoryId = categoryId;
+    }
+    if (typeof subcategoryId !== "undefined" && subcategoryId !== "all") {
+      filter.subcategoryId = subcategoryId;
     }
 
     if (typeof actionId !== "undefined" && actionId !== "all") {
