@@ -45,15 +45,16 @@ const addProductsService = async (req) => {
     //   }
     // }
 
-
     const validVariants = Array.isArray(variants)
       ? variants.map((v) => ({
-        color_uz: v.color_uz || "",
-        color_ru: v.color_ru || "",
-        color_en: v.color_en || "",
-        size: v.size || "",
-        total: Number(v.total) || 0,
-      }))
+          color_uz: v.color_uz || "",
+          color_ru: v.color_ru || "",
+          color_en: v.color_en || "",
+          size_uz: v.size_uz || "",
+          size_ru: v.size_ru || "",
+          size_en: v.size_en || "",
+          total: Number(v.total) || 0,
+        }))
       : [];
 
     const products = new Products({

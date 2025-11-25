@@ -21,13 +21,17 @@ exports.addProductsSchema = {
     original_price: Joi.string(),
     min_buy_quantity: Joi.number(),
     max_buy_quantity: Joi.number(),
-    variants: Joi.array().items(Joi.object({
-      color_uz: Joi.string(),
-      color_ru: Joi.string(),
-      color_en: Joi.string(),
-      size: Joi.string(),
-      total: Joi.number(),
-    })),
+    variants: Joi.array().items(
+      Joi.object({
+        color_uz: Joi.string(),
+        color_ru: Joi.string(),
+        color_en: Joi.string(),
+        size_uz: Joi.string(),
+        size_ru: Joi.string(),
+        size_en: Joi.string(),
+        total: Joi.number(),
+      })
+    ),
     image: Joi.array(),
   }),
 };
@@ -58,13 +62,17 @@ exports.patchProductsSchema = {
     original_price: Joi.string(),
     min_buy_quantity: Joi.number(),
     max_buy_quantity: Joi.number(),
-    variants: Joi.array().items(Joi.object({
-      color_uz: Joi.string(),
-      color_ru: Joi.string(),
-      color_en: Joi.string(),
-      size: Joi.string(),
-      total: Joi.number(),
-    })),
+    variants: Joi.array().items(
+      Joi.object({
+        color_uz: Joi.string(),
+        color_ru: Joi.string(),
+        color_en: Joi.string(),
+        size_uz: Joi.string(),
+        size_ru: Joi.string(),
+        size_en: Joi.string(),
+        total: Joi.number(),
+      })
+    ),
     image: Joi.array(),
   }),
 };
@@ -73,7 +81,7 @@ exports.allProductsSchema = {
   query: Joi.object({
     q: Joi.string(),
     is_visible: Joi.string().valid("true", "false"),
-    categoryId: Joi.string().optional(), // .required() 
+    categoryId: Joi.string().optional(), // .required()
     actionId: Joi.string().optional(),
     subcategoryId: Joi.string().optional(),
     sort: Joi.object({
