@@ -1,9 +1,21 @@
 const mongoose = require("mongoose");
 const Products = require("./Products");
+const ExchangeRate = require("../exchange-rate/ExchangeRate");
+
 const allProductsService = async (query) => {
   try {
-    const { q, page, limit, sort, is_visible, view, categoryId, subcategoryId, actionId, all } =
-      query || {};
+    const {
+      q,
+      page,
+      limit,
+      sort,
+      is_visible,
+      view,
+      categoryId,
+      subcategoryId,
+      actionId,
+      all,
+    } = query || {};
 
     const sortOptions = {};
     const paginationOptions = {};
@@ -21,11 +33,9 @@ const allProductsService = async (query) => {
     if (sort && sort.by) {
       if (sort.by === "name_ru") {
         sortOptions[sort.by] = sort.order === "desc" ? -1 : 1;
-      }
-      else if (sort.by === "name_uz") {
+      } else if (sort.by === "name_uz") {
         sortOptions[sort.by] = sort.order === "desc" ? -1 : 1;
-      }
-      else if (sort.by === "name_en") {
+      } else if (sort.by === "name_en") {
         sortOptions[sort.by] = sort.order === "desc" ? -1 : 1;
       }
     }
@@ -73,7 +83,10 @@ const allProductsService = async (query) => {
             if (Array.isArray(parsed)) values = parsed;
             else values = [parsed];
           } else if (raw.includes(",")) {
-            values = raw.split(",").map((s) => s.trim()).filter(Boolean);
+            values = raw
+              .split(",")
+              .map((s) => s.trim())
+              .filter(Boolean);
           } else {
             values = [raw];
           }
@@ -92,10 +105,14 @@ const allProductsService = async (query) => {
 
       if (normalized.length === 1) {
         const v = normalized[0];
-        filter.actionId = mongoose.isValidObjectId(v) ? new mongoose.Types.ObjectId(v) : v;
+        filter.actionId = mongoose.isValidObjectId(v)
+          ? new mongoose.Types.ObjectId(v)
+          : v;
       } else if (normalized.length > 1) {
         filter.actionId = {
-          $in: normalized.map((v) => (mongoose.isValidObjectId(v) ? new mongoose.Types.ObjectId(v) : v)),
+          $in: normalized.map((v) =>
+            mongoose.isValidObjectId(v) ? new mongoose.Types.ObjectId(v) : v
+          ),
         };
       }
     }
@@ -111,11 +128,33 @@ const allProductsService = async (query) => {
     const products = await queryBuilder.exec();
     const totalProducts = await Products.countDocuments(filter);
 
+    // Get USD to UZS exchange rate
+    let exchangeRate = await ExchangeRate.findById("exchange_rate_usd").lean();
+    if (!exchangeRate) {
+      exchangeRate = { usd_to_uzs: 12500 }; // default
+    }
+
+    // Convert USD prices to UZS
+    const productsWithUzs = products.map((product) => {
+      const priceUsd = parseFloat(product.price) || 0;
+      const priceUzs = Math.round(priceUsd * exchangeRate.usd_to_uzs);
+      const originalPriceUsd = parseFloat(product.original_price) || 0;
+      const originalPriceUzs = Math.round(originalPriceUsd * exchangeRate.usd_to_uzs);
+      return {
+        ...product,
+        price_usd: product.price,
+        price: priceUzs.toString(),
+        original_price_usd: product.original_price,
+        original_price: originalPriceUzs.toString(),
+      };
+    });
+
     return {
-      products,
+      products: productsWithUzs,
       total: totalProducts,
       offset: all ? 0 : paginationOptions.skip,
       limit: all ? totalProducts : paginationOptions.limit,
+      exchange_rate: exchangeRate.usd_to_uzs,
     };
   } catch (error) {
     throw error;
