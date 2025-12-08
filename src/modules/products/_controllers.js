@@ -77,7 +77,8 @@ const patchProducts = async (req, res, next) => {
  */
 const showProducts = async (req, res, next) => {
   try {
-    const result = await showProductsService({ id: req.params.id });
+    const usdParam = req.query && typeof req.query.usd !== "undefined" && req.query.usd !== "false" && req.query.usd !== "0";
+    const result = await showProductsService({ id: req.params.id, usd: !!usdParam });
 
     res.status(200).json({
       data: result,
@@ -107,6 +108,7 @@ const getProducts = async (req, res, next) => {
         ? parseInt(query.page.limit)
         : undefined;
 
+    const usdParam = query && typeof query.usd !== "undefined" && query.usd !== "false" && query.usd !== "0";
     const result = await allProductsService({
       q: query.q, // Pass search query
       sort: query.sort,
@@ -116,10 +118,12 @@ const getProducts = async (req, res, next) => {
       categoryId: query.categoryId, // Pass categoryId to service
       subcategoryId: query.subcategoryId,
       actionId: query.actionId,
+      usd: !!usdParam,
     });
 
     res.status(200).json({
       data: result.products,
+      exchange_rate: result.exchange_rate,
       pageInfo: {
         total: result.total,
         offset: result.offset,

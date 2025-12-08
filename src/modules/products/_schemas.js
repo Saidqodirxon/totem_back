@@ -92,5 +92,6 @@ exports.allProductsSchema = {
       offset: Joi.number().integer().min(0).default(0),
       limit: Joi.number().integer().min(1).default(3),
     }),
+    usd: Joi.any().optional(),
   }),
 };

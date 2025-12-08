@@ -19,6 +19,7 @@ const allProductsService = async (query) => {
 
     const sortOptions = {};
     const paginationOptions = {};
+    // usd,
 
     const itemsPerPage = parseInt(limit) || 1000;
     const currentPage = parseInt(page?.currentPage) || 1;
@@ -139,7 +140,9 @@ const allProductsService = async (query) => {
       const priceUsd = parseFloat(product.price) || 0;
       const priceUzs = Math.round(priceUsd * exchangeRate.usd_to_uzs);
       const originalPriceUsd = parseFloat(product.original_price) || 0;
-      const originalPriceUzs = Math.round(originalPriceUsd * exchangeRate.usd_to_uzs);
+      const originalPriceUzs = Math.round(
+        originalPriceUsd * exchangeRate.usd_to_uzs
+      );
       return {
         ...product,
         price_usd: product.price,
